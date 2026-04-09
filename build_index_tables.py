@@ -236,20 +236,151 @@ def emit_qa_table():
 
 PAGE_STYLE = """
   <style>
-    .lb-wrap { overflow-x: auto; margin: 1.25rem 0; -webkit-overflow-scrolling: touch; border: 1px solid #e8e8e8; border-radius: 6px; }
-    .lb-table { border-collapse: collapse; font-size: 0.55rem; min-width: max-content; width: 100%; background: #fff; }
-    .lb-table th, .lb-table td { border: 1px solid #c8c8c8; padding: 0.22rem 0.32rem; vertical-align: middle; }
+    /* ReasonMap-style: light page, narrow reading column, centered blocks */
+    body.maptab-body {
+      background: #fafafa;
+      color: #222;
+    }
+    body.maptab-body .navbar {
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+      min-height: 2.75rem;
+    }
+    .maptab-narrow {
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maptab-hero .hero-body {
+      padding-top: 2.5rem;
+      padding-bottom: 1.5rem;
+    }
+    .maptab-hero .publication-title {
+      max-width: 44rem;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: clamp(1.2rem, 2.6vw, 1.75rem) !important;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    .maptab-hero .publication-authors {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maptab-hero .publication-links {
+      justify-content: center;
+    }
+    .maptab-teaser {
+      background: transparent;
+    }
+    .maptab-teaser .hero-body {
+      padding-top: 0.5rem;
+      padding-bottom: 1.25rem;
+    }
+    .maptab-teaser-img {
+      display: block;
+      margin: 0 auto;
+      max-width: min(100%, 560px);
+      max-height: 168px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .maptab-teaser .content {
+      max-width: 38rem;
+      margin: 0.75rem auto 0;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      text-align: center;
+      color: #444;
+    }
+    body.maptab-body .section {
+      padding-top: 1.75rem;
+      padding-bottom: 1.75rem;
+      background: transparent;
+    }
+    body.maptab-body .section h2.title.is-3 {
+      font-size: 1.35rem !important;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    body.maptab-body #BibTeX pre {
+      font-size: 0.78rem;
+      border-radius: 6px;
+      background: #fff;
+      border: 1px solid #eaeaea;
+    }
+    /* Compact leaderboards: centered like ReasonMap, scroll inside card */
+    .maptab-lb-section .container {
+      max-width: 880px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maptab-lb-section h2.title {
+      text-align: center;
+    }
+    .lb-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0.75rem auto 0;
+      padding: 0.35rem 0.3rem;
+      border: 1px solid #e8e8e8;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      max-width: 100%;
+    }
+    .lb-table {
+      border-collapse: collapse;
+      font-size: 0.5rem;
+      min-width: max-content;
+      width: max-content;
+      margin: 0 auto;
+      background: #fff;
+    }
+    .lb-table th, .lb-table td {
+      border: 1px solid #c8c8c8;
+      padding: 0.12rem 0.2rem;
+      vertical-align: middle;
+      line-height: 1.25;
+    }
     .lb-th-model, .lb-th-type { background: #F2F2F2 !important; font-weight: 600; }
-    .lb-model { text-align: left; white-space: nowrap; max-width: 14rem; }
+    .lb-model { text-align: left; white-space: nowrap; max-width: 9.5rem; }
     .lb-type { text-align: center; white-space: nowrap; }
     .lb-num { text-align: center; }
     .lb-best { background: #D9D9D9 !important; font-weight: 700; }
-    .lb-sec td { background: #E7F3FF !important; text-align: center; font-size: 0.65rem; }
-    .lb-subh td { text-align: left; font-style: italic; background: #fafafa !important; }
-    .lb-mid td { height: 4px; padding: 0; border: none; background: transparent !important; }
+    .lb-sec td { background: #E7F3FF !important; text-align: center; font-size: 0.58rem; }
+    .lb-subh td { text-align: left; font-style: italic; background: #fafafa !important; font-size: 0.52rem; }
+    .lb-mid td { height: 3px; padding: 0; border: none; background: transparent !important; }
     .lb-heavy td { border-top: 2px solid #363636; height: 0; padding: 0; background: transparent !important; }
-    .lb-caption { font-size: 0.9rem; text-align: justify; margin-bottom: 0.75rem; color: #363636; }
+    .lb-caption {
+      font-size: 0.8rem;
+      line-height: 1.45;
+      text-align: center;
+      margin: 0 auto 0.35rem;
+      max-width: 44rem;
+      color: #444;
+    }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
+    .maptab-abstract .content,
+    .maptab-abstract h2 {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maptab-bib .title,
+    .maptab-bib pre {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .maptab-bib h2.title { text-align: center; }
+    @media (max-width: 768px) {
+      .maptab-teaser-img { max-height: 140px; }
+      .lb-table { font-size: 0.44rem; }
+    }
   </style>
 """
 
@@ -306,7 +437,7 @@ def emit_index_html():
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 </head>
-<body>
+<body class="maptab-body">
   <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -324,9 +455,9 @@ def emit_index_html():
     </div>
   </nav>
 
-  <section class="hero">
+  <section class="hero maptab-hero">
     <div class="hero-body">
-      <div class="container is-max-desktop">
+      <div class="container maptab-narrow">
         <div class="columns is-centered">
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title">{escape(title)}</h1>
@@ -345,20 +476,20 @@ def emit_index_html():
               <span><sup>†</sup>Equal contribution &nbsp;&nbsp;</span>
               <span><sup>*</sup>Corresponding author: <span class="is-family-monospace">guolz@lamda.nju.edu.cn</span></span>
             </div>
-            <div class="columns is-centered" style="margin-top:1rem;">
+            <div class="columns is-centered is-mobile is-variable is-2" style="margin-top:0.75rem;justify-content:center;">
               <div class="column is-narrow">
                 <figure class="image">
-                  <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 96px; object-fit: contain;">
+                  <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 72px; object-fit: contain;">
                 </figure>
               </div>
               <div class="column is-narrow">
                 <figure class="image">
-                  <img src="figure/lamda.png" alt="LAMDA" style="height: 96px; object-fit: contain;">
+                  <img src="figure/lamda.png" alt="LAMDA" style="height: 72px; object-fit: contain;">
                 </figure>
               </div>
             </div>
-            <div class="column has-text-centered" style="margin-top:1rem;">
-              <div class="publication-links">
+            <div class="has-text-centered" style="margin-top:0.75rem;">
+              <div class="publication-links" style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.35rem;">
                 <span class="link-block">
                   <a href="#" class="external-link button is-normal is-rounded is-dark">
                     <span class="icon"><i class="ai ai-arxiv"></i></span>
@@ -387,69 +518,57 @@ def emit_index_html():
     </div>
   </section>
 
-  <section class="hero teaser">
-    <div class="container is-max-desktop">
+  <section class="hero teaser maptab-teaser">
+    <div class="container maptab-narrow">
       <div class="hero-body">
         <div class="has-text-centered">
-          <img src="./figure/fig_1.png" alt="MapTab overview" style="max-width: 100%; height: auto;">
+          <img class="maptab-teaser-img" src="./figure/fig_1.png" alt="MapTab overview">
         </div>
-        <div class="content has-text-justified" style="margin-top:1rem;">
+        <div class="content">
           Overview of MapTab: a multimodal benchmark for multi-criteria route planning over map images and structured tables (MetroMap and TravelMap).
         </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          <h2 class="title is-3">Abstract</h2>
-          <div class="content has-text-justified">
-            {escape(ABSTRACT)}
-          </div>
-        </div>
+  <section class="section maptab-abstract">
+    <div class="container maptab-narrow">
+      <h2 class="title is-3 has-text-centered">Abstract</h2>
+      <div class="content has-text-justified">
+        {escape(ABSTRACT)}
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full">
-          <h2 class="title is-3 has-text-centered">Route planning leaderboard</h2>
-          <p class="lb-caption">{ROUTE_CAPTION}</p>
-          <div class="lb-wrap">
+  <section class="section maptab-lb-section">
+    <div class="container">
+      <h2 class="title is-3">Route planning leaderboard</h2>
+      <p class="lb-caption">{ROUTE_CAPTION}</p>
+      <div class="lb-wrap">
 {emit_route_table()}
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column is-full">
-          <h2 class="title is-3 has-text-centered">QA leaderboard</h2>
-          <p class="lb-caption">{QA_CAPTION}</p>
-          <div class="lb-wrap">
+  <section class="section maptab-lb-section">
+    <div class="container">
+      <h2 class="title is-3">QA leaderboard</h2>
+      <p class="lb-caption">{QA_CAPTION}</p>
+      <div class="lb-wrap">
 {emit_qa_table()}
-          </div>
-        </div>
       </div>
     </div>
   </section>
 
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
+  <section class="section maptab-bib" id="BibTeX">
+    <div class="container maptab-narrow content">
       <h2 class="title">BibTeX</h2>
       <pre><code>{escape(BIBTEX)}</code></pre>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="has-text-centered container">
+  <footer class="footer" style="background:transparent;padding:2rem 1rem;">
+    <div class="has-text-centered container maptab-narrow">
       <div class="content">
         This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
       </div>
