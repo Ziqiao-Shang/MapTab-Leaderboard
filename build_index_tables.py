@@ -384,10 +384,10 @@ PAGE_STYLE = """
       background: transparent;
     }
     .maptab-teaser .maptab-teaser-outer {
-      max-width: 100%;
+      max-width: 880px;
       width: 100%;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
       margin: 0 auto;
     }
     .maptab-teaser .hero-body {
@@ -397,13 +397,13 @@ PAGE_STYLE = """
     .maptab-teaser-img {
       display: block;
       margin: 0 auto;
-      width: 60vw;
+      width: 100%;
       max-width: 100%;
       height: auto;
       object-fit: contain;
     }
     .maptab-teaser .content {
-      max-width: min(42rem, 90vw);
+      max-width: 100%;
       margin: 0.85rem auto 0;
       font-size: 0.95rem;
       line-height: 1.55;
@@ -497,7 +497,6 @@ PAGE_STYLE = """
     }
     .maptab-bib h2.title { text-align: center; }
     @media (max-width: 768px) {
-      .maptab-teaser-img { width: 92vw; }
       .lb-table { font-size: 0.44rem; }
     }
   </style>
