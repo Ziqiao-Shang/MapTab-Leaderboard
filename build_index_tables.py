@@ -259,16 +259,26 @@ PAGE_STYLE = """
       padding-bottom: 1.5rem;
     }
     .maptab-hero .publication-title {
-      max-width: 48rem;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
       text-align: center !important;
       color: #111 !important;
       font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
-      font-size: clamp(1.35rem, 3.2vw, 2.2rem) !important;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem) !important;
       font-weight: 700 !important;
-      line-height: 1.28;
+      line-height: 1.32;
       letter-spacing: -0.02em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .maptab-title-line {
+      display: block;
+      text-align: center;
+    }
+    @media (min-width: 641px) {
+      .maptab-title-line { white-space: nowrap; }
     }
     .maptab-author-names {
       max-width: 42rem;
@@ -293,26 +303,23 @@ PAGE_STYLE = """
       letter-spacing: 0.02em;
     }
     .maptab-affiliations {
-      max-width: 100%;
+      max-width: 40rem;
       margin: 0 auto 0.35rem;
-      padding: 0 0.25rem;
+      padding: 0 0.5rem;
       text-align: center;
       font-size: 0.88rem;
       font-weight: 400;
       color: #444;
-      line-height: 1.45;
-      white-space: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      line-height: 1.5;
+    }
+    .maptab-affiliations .affil-line {
+      display: block;
+      margin-bottom: 0.12rem;
     }
     .maptab-affiliations sup {
       font-size: 0.75em;
       font-weight: 600;
       margin-right: 0.12em;
-    }
-    .maptab-affil-sep {
-      display: inline-block;
-      width: 1.15rem;
     }
     .maptab-author-notes {
       max-width: 38rem;
@@ -387,18 +394,17 @@ PAGE_STYLE = """
     .maptab-teaser {
       background: transparent;
     }
-    .maptab-figure-lb-width {
-      max-width: 100%;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      box-sizing: border-box;
-    }
     .maptab-teaser .hero-body {
       padding-top: 0.5rem;
       padding-bottom: 1.25rem;
+    }
+    /* Same width as Abstract body (40rem), centered inside .maptab-narrow */
+    .maptab-reading-col {
+      width: 100%;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
     }
     .maptab-teaser-img {
       display: block;
@@ -409,6 +415,7 @@ PAGE_STYLE = """
       object-fit: contain;
     }
     .maptab-teaser .content {
+      width: 100%;
       max-width: 100%;
       margin: 0.85rem 0 0;
       font-size: 0.95rem;
@@ -426,9 +433,11 @@ PAGE_STYLE = """
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
-    /* Leaderboards share .maptab-figure-lb-width with teaser figure */
     .maptab-lb-section h2.title {
       text-align: center;
+    }
+    .maptab-lb-section .maptab-reading-col .lb-caption {
+      max-width: 100%;
     }
     .lb-wrap {
       overflow-x: auto;
@@ -439,14 +448,17 @@ PAGE_STYLE = """
       border-radius: 6px;
       background: #fff;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
     }
     .lb-table {
       border-collapse: collapse;
       font-size: 0.5rem;
-      min-width: max-content;
-      width: max-content;
-      margin: 0 auto;
+      width: 100%;
+      min-width: 100%;
+      table-layout: fixed;
+      margin: 0;
       background: #fff;
     }
     .lb-table th, .lb-table td {
@@ -456,7 +468,7 @@ PAGE_STYLE = """
       line-height: 1.25;
     }
     .lb-th-model, .lb-th-type { background: #F2F2F2 !important; font-weight: 600; }
-    .lb-model { text-align: left; white-space: nowrap; max-width: 9.5rem; }
+    .lb-model { text-align: left; white-space: normal; word-break: break-word; hyphens: auto; }
     .lb-type { text-align: center; white-space: nowrap; }
     .lb-num { text-align: center; }
     .lb-best { background: #D9D9D9 !important; font-weight: 700; }
@@ -469,7 +481,7 @@ PAGE_STYLE = """
       line-height: 1.45;
       text-align: center;
       margin: 0 auto 0.35rem;
-      max-width: 44rem;
+      max-width: 40rem;
       color: #444;
     }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
@@ -497,16 +509,16 @@ PAGE_STYLE = """
       font-size: 0.8rem;
       line-height: 1.45;
       border-radius: 8px;
-      background: #0d0d0d !important;
-      color: #ececec !important;
-      border: 1px solid #2a2a2a !important;
+      background: #ececec !important;
+      color: #1a1a1a !important;
+      border: 1px solid #d0d0d0 !important;
       padding: 1rem 1.15rem !important;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
     .maptab-bib pre code {
       background: transparent !important;
-      color: inherit !important;
+      color: #1a1a1a !important;
       font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
       font-size: inherit;
     }
@@ -553,10 +565,11 @@ BIBTEX = r"""@article{shang2026maptab,
 
 def emit_index_html():
     title = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?"
+    _t1 = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning"
+    _t2 = "in Heterogeneous Graphs?"
     title_html = (
-        escape("MapTab: Are MLLMs Ready for Multi-Criteria Route Planning")
-        + "<br>"
-        + escape("in Heterogeneous Graphs?")
+        f'<span class="maptab-title-line">{escape(_t1)}</span>'
+        f'<span class="maptab-title-line">{escape(_t2)}</span>'
     )
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -610,7 +623,8 @@ def emit_index_html():
             </div>
             <span class="maptab-year">2026</span>
             <div class="maptab-affiliations">
-              <span><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span><span class="maptab-affil-sep" aria-hidden="true"></span><span><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
+              <span class="affil-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
+              <span class="affil-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
             </div>
             <div class="maptab-author-notes">
               <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author: <span class="maptab-email">guolz@lamda.nju.edu.cn</span></span>
@@ -635,13 +649,13 @@ def emit_index_html():
   </section>
 
   <section class="hero teaser maptab-teaser">
-    <div class="maptab-figure-lb-width">
+    <div class="container maptab-narrow">
       <div class="hero-body">
-        <div class="has-text-centered">
+        <div class="maptab-reading-col">
           <img class="maptab-teaser-img" src="./figure/fig_1.png" alt="MapTab overview">
-        </div>
-        <div class="content">
-          {escape(TEASER_BLURB)}
+          <div class="content">
+            {escape(TEASER_BLURB)}
+          </div>
         </div>
       </div>
     </div>
@@ -657,21 +671,25 @@ def emit_index_html():
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="maptab-figure-lb-width">
-      <h2 class="title is-3">Route planning leaderboard</h2>
-      <p class="lb-caption">{ROUTE_CAPTION}</p>
-      <div class="lb-wrap">
+    <div class="container maptab-narrow">
+      <div class="maptab-reading-col">
+        <h2 class="title is-3">Route planning leaderboard</h2>
+        <p class="lb-caption">{ROUTE_CAPTION}</p>
+        <div class="lb-wrap">
 {emit_route_table()}
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="maptab-figure-lb-width">
-      <h2 class="title is-3">QA leaderboard</h2>
-      <p class="lb-caption">{QA_CAPTION}</p>
-      <div class="lb-wrap">
+    <div class="container maptab-narrow">
+      <div class="maptab-reading-col">
+        <h2 class="title is-3">QA leaderboard</h2>
+        <p class="lb-caption">{QA_CAPTION}</p>
+        <div class="lb-wrap">
 {emit_qa_table()}
+        </div>
       </div>
     </div>
   </section>
@@ -683,13 +701,6 @@ def emit_index_html():
     </div>
   </section>
 
-  <footer class="footer" style="background:transparent;padding:2rem 1rem;">
-    <div class="has-text-centered container maptab-narrow">
-      <div class="content">
-        This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
 """

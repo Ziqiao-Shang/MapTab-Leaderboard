@@ -38,16 +38,26 @@
       padding-bottom: 1.5rem;
     }
     .maptab-hero .publication-title {
-      max-width: 48rem;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
       text-align: center !important;
       color: #111 !important;
       font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
-      font-size: clamp(1.35rem, 3.2vw, 2.2rem) !important;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem) !important;
       font-weight: 700 !important;
-      line-height: 1.28;
+      line-height: 1.32;
       letter-spacing: -0.02em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .maptab-title-line {
+      display: block;
+      text-align: center;
+    }
+    @media (min-width: 641px) {
+      .maptab-title-line { white-space: nowrap; }
     }
     .maptab-author-names {
       max-width: 42rem;
@@ -72,26 +82,23 @@
       letter-spacing: 0.02em;
     }
     .maptab-affiliations {
-      max-width: 100%;
+      max-width: 40rem;
       margin: 0 auto 0.35rem;
-      padding: 0 0.25rem;
+      padding: 0 0.5rem;
       text-align: center;
       font-size: 0.88rem;
       font-weight: 400;
       color: #444;
-      line-height: 1.45;
-      white-space: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      line-height: 1.5;
+    }
+    .maptab-affiliations .affil-line {
+      display: block;
+      margin-bottom: 0.12rem;
     }
     .maptab-affiliations sup {
       font-size: 0.75em;
       font-weight: 600;
       margin-right: 0.12em;
-    }
-    .maptab-affil-sep {
-      display: inline-block;
-      width: 1.15rem;
     }
     .maptab-author-notes {
       max-width: 38rem;
@@ -166,18 +173,17 @@
     .maptab-teaser {
       background: transparent;
     }
-    .maptab-figure-lb-width {
-      max-width: 100%;
-      width: 100%;
-      margin-left: auto;
-      margin-right: auto;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      box-sizing: border-box;
-    }
     .maptab-teaser .hero-body {
       padding-top: 0.5rem;
       padding-bottom: 1.25rem;
+    }
+    /* Same width as Abstract body (40rem), centered inside .maptab-narrow */
+    .maptab-reading-col {
+      width: 100%;
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+      box-sizing: border-box;
     }
     .maptab-teaser-img {
       display: block;
@@ -188,6 +194,7 @@
       object-fit: contain;
     }
     .maptab-teaser .content {
+      width: 100%;
       max-width: 100%;
       margin: 0.85rem 0 0;
       font-size: 0.95rem;
@@ -205,9 +212,11 @@
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
-    /* Leaderboards share .maptab-figure-lb-width with teaser figure */
     .maptab-lb-section h2.title {
       text-align: center;
+    }
+    .maptab-lb-section .maptab-reading-col .lb-caption {
+      max-width: 100%;
     }
     .lb-wrap {
       overflow-x: auto;
@@ -218,14 +227,17 @@
       border-radius: 6px;
       background: #fff;
       box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
     }
     .lb-table {
       border-collapse: collapse;
       font-size: 0.5rem;
-      min-width: max-content;
-      width: max-content;
-      margin: 0 auto;
+      width: 100%;
+      min-width: 100%;
+      table-layout: fixed;
+      margin: 0;
       background: #fff;
     }
     .lb-table th, .lb-table td {
@@ -235,7 +247,7 @@
       line-height: 1.25;
     }
     .lb-th-model, .lb-th-type { background: #F2F2F2 !important; font-weight: 600; }
-    .lb-model { text-align: left; white-space: nowrap; max-width: 9.5rem; }
+    .lb-model { text-align: left; white-space: normal; word-break: break-word; hyphens: auto; }
     .lb-type { text-align: center; white-space: nowrap; }
     .lb-num { text-align: center; }
     .lb-best { background: #D9D9D9 !important; font-weight: 700; }
@@ -248,7 +260,7 @@
       line-height: 1.45;
       text-align: center;
       margin: 0 auto 0.35rem;
-      max-width: 44rem;
+      max-width: 40rem;
       color: #444;
     }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
@@ -276,16 +288,16 @@
       font-size: 0.8rem;
       line-height: 1.45;
       border-radius: 8px;
-      background: #0d0d0d !important;
-      color: #ececec !important;
-      border: 1px solid #2a2a2a !important;
+      background: #ececec !important;
+      color: #1a1a1a !important;
+      border: 1px solid #d0d0d0 !important;
       padding: 1rem 1.15rem !important;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
     .maptab-bib pre code {
       background: transparent !important;
-      color: inherit !important;
+      color: #1a1a1a !important;
       font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
       font-size: inherit;
     }
@@ -323,14 +335,15 @@
       <div class="container maptab-narrow">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">MapTab: Are MLLMs Ready for Multi-Criteria Route Planning<br>in Heterogeneous Graphs?</h1>
+            <h1 class="title is-1 publication-title"><span class="maptab-title-line">MapTab: Are MLLMs Ready for Multi-Criteria Route Planning</span><span class="maptab-title-line">in Heterogeneous Graphs?</span></h1>
             <div class="maptab-author-names">
               Ziqiao Shang<sup>1,2†</sup>, Lingyue Ge<sup>1,2†</sup>, Yang Chen<sup>1,2</sup>, Shi-Yu Tian<sup>1,2</sup>, Zhenyu Huang<sup>1,2</sup>,<br>
               Wenbo Fu<sup>1,2</sup>, Yu-Feng Li<sup>1,2</sup>, Lan-Zhe Guo<sup>1,2*</sup>
             </div>
             <span class="maptab-year">2026</span>
             <div class="maptab-affiliations">
-              <span><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span><span class="maptab-affil-sep" aria-hidden="true"></span><span><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
+              <span class="affil-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
+              <span class="affil-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
             </div>
             <div class="maptab-author-notes">
               <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author: <span class="maptab-email">guolz@lamda.nju.edu.cn</span></span>
@@ -355,13 +368,13 @@
   </section>
 
   <section class="hero teaser maptab-teaser">
-    <div class="maptab-figure-lb-width">
+    <div class="container maptab-narrow">
       <div class="hero-body">
-        <div class="has-text-centered">
+        <div class="maptab-reading-col">
           <img class="maptab-teaser-img" src="./figure/fig_1.png" alt="MapTab overview">
-        </div>
-        <div class="content">
-          MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: route planning and map-based question answering, using both metro maps and travel maps.
+          <div class="content">
+            MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: route planning and map-based question answering, using both metro maps and travel maps.
+          </div>
         </div>
       </div>
     </div>
@@ -377,10 +390,11 @@
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="maptab-figure-lb-width">
-      <h2 class="title is-3">Route planning leaderboard</h2>
-      <p class="lb-caption">Evaluation results of various Multimodal Large Language Models (MLLMs) on the MapTab path planning task <strong>MetroMap</strong> and <strong>TravelMap</strong> scenarios. EMA, PMA, and DS denote Exact Match Accuracy, Partial Match Accuracy, and Difficulty-aware Score, respectively. Map-only: map information only; Edge-only: edge data only; Map+Edge: map and edge data; Map+Edge+Vertex: map, edge, and vertex data; Map+Vertex2: map and merged vertex data (Vertex2_tab). We did not include Edge_tab + Vertex_tab because the comparison between it and Map + Vertex2_tab yielded conclusions consistent with those from the Map-only and Edge_tab-only control groups, without new findings. <strong>Bold</strong> values represent the best performance within open-source and closed-source groups, respectively.</p>
-      <div class="lb-wrap">
+    <div class="container maptab-narrow">
+      <div class="maptab-reading-col">
+        <h2 class="title is-3">Route planning leaderboard</h2>
+        <p class="lb-caption">Evaluation results of various Multimodal Large Language Models (MLLMs) on the MapTab path planning task <strong>MetroMap</strong> and <strong>TravelMap</strong> scenarios. EMA, PMA, and DS denote Exact Match Accuracy, Partial Match Accuracy, and Difficulty-aware Score, respectively. Map-only: map information only; Edge-only: edge data only; Map+Edge: map and edge data; Map+Edge+Vertex: map, edge, and vertex data; Map+Vertex2: map and merged vertex data (Vertex2_tab). We did not include Edge_tab + Vertex_tab because the comparison between it and Map + Vertex2_tab yielded conclusions consistent with those from the Map-only and Edge_tab-only control groups, without new findings. <strong>Bold</strong> values represent the best performance within open-source and closed-source groups, respectively.</p>
+        <div class="lb-wrap">
 <table class="lb-table">
 <thead><tr>
 <th rowspan="2" class="lb-th-model">Model</th><th rowspan="2" class="lb-th-type">Type</th>
@@ -440,15 +454,17 @@
 <tr><td class="lb-model">Qwen-VL-Plus-w/o</td><td class="lb-type">No-Thinking</td><td class="lb-num">30.60</td><td class="lb-num">52.64</td><td class="lb-num">1935</td><td class="lb-num">64.23</td><td class="lb-num">76.45</td><td class="lb-num">4656</td><td class="lb-num">69.64</td><td class="lb-num">79.78</td><td class="lb-num">5133</td><td class="lb-num">53.99</td><td class="lb-num">70.07</td><td class="lb-num">3842</td><td class="lb-num">22.92</td><td class="lb-num">47.65</td><td class="lb-num">1417</td></tr>
 <tr><td class="lb-model">Qwen-VL-Plus-Thinking</td><td class="lb-type">Thinking</td><td class="lb-num">38.27</td><td class="lb-num">58.94</td><td class="lb-num">2539</td><td class="lb-num">64.35</td><td class="lb-num">76.53</td><td class="lb-num">4670</td><td class="lb-num">94.23</td><td class="lb-num">96.04</td><td class="lb-num">7570</td><td class="lb-num">56.19</td><td class="lb-num">70.84</td><td class="lb-num">4042</td><td class="lb-num">23.21</td><td class="lb-num">47.18</td><td class="lb-num">1481</td></tr>
 </tbody></table>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="maptab-figure-lb-width">
-      <h2 class="title is-3">QA leaderboard</h2>
-      <p class="lb-caption">Performance of QA tasks across multiple MLLMs in the MetroMap and TravelMap scenarios. Regarding input modalities, M, E, and V denote Map, Edge_tab, and Vertex_tab, respectively. In the MetroMap scenario, the Vertex_tab paired with the Map input has the Line column removed to prevent excessive table information from affecting the evaluation of map-table coordination. Task types are categorized into three classes: Global Perception-based Reasoning Tasks (GP), Local Perception-based Reasoning Tasks (LP), and Spatial Relationship Judgment Tasks (SR). <strong>Bold</strong> values in the table indicate the best performance among open-source and closed-source models, respectively.</p>
-      <div class="lb-wrap">
+    <div class="container maptab-narrow">
+      <div class="maptab-reading-col">
+        <h2 class="title is-3">QA leaderboard</h2>
+        <p class="lb-caption">Performance of QA tasks across multiple MLLMs in the MetroMap and TravelMap scenarios. Regarding input modalities, M, E, and V denote Map, Edge_tab, and Vertex_tab, respectively. In the MetroMap scenario, the Vertex_tab paired with the Map input has the Line column removed to prevent excessive table information from affecting the evaluation of map-table coordination. Task types are categorized into three classes: Global Perception-based Reasoning Tasks (GP), Local Perception-based Reasoning Tasks (LP), and Spatial Relationship Judgment Tasks (SR). <strong>Bold</strong> values in the table indicate the best performance among open-source and closed-source models, respectively.</p>
+        <div class="lb-wrap">
 <table class="lb-table lb-table-qa">
 <thead><tr>
 <th rowspan="2" class="lb-th-model">Model</th><th rowspan="2" class="lb-th-type">Type</th>
@@ -506,6 +522,7 @@
 <tr><td class="lb-model">Qwen-VL-Plus-w/o_Thinking</td><td class="lb-type">No-Thinking</td><td class="lb-num">19.64</td><td class="lb-num">72.02</td><td class="lb-num">52.98</td><td class="lb-num">48.81</td><td class="lb-num lb-best"><strong>100.00</strong></td><td class="lb-num">35.71</td><td class="lb-num">57.74</td><td class="lb-num">98.81</td><td class="lb-num">82.74</td><td class="lb-num">54.17</td><td class="lb-num">70.24</td><td class="lb-num">19.64</td></tr>
 <tr><td class="lb-model">Qwen-VL-Plus-Thinking</td><td class="lb-type">Thinking</td><td class="lb-num">24.40</td><td class="lb-num">67.86</td><td class="lb-num">62.50</td><td class="lb-num">98.81</td><td class="lb-num lb-best"><strong>100.00</strong></td><td class="lb-num">34.52</td><td class="lb-num lb-best"><strong>100.00</strong></td><td class="lb-num lb-best"><strong>100.00</strong></td><td class="lb-num lb-best"><strong>100.00</strong></td><td class="lb-num">69.05</td><td class="lb-num">72.62</td><td class="lb-num">24.40</td></tr>
 </tbody></table>
+        </div>
       </div>
     </div>
   </section>
@@ -522,12 +539,5 @@
     </div>
   </section>
 
-  <footer class="footer" style="background:transparent;padding:2rem 1rem;">
-    <div class="has-text-centered container maptab-narrow">
-      <div class="content">
-        This website is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a>.
-      </div>
-    </div>
-  </footer>
 </body>
 </html>
