@@ -238,11 +238,11 @@ PAGE_STYLE = """
   <style>
     /* ReasonMap-style: light page, narrow reading column, centered blocks */
     body.maptab-body {
-      background: #fafafa;
+      background: #fff;
       color: #222;
     }
     body.maptab-body .navbar {
-      background: #fafafa;
+      background: #fff;
       border-bottom: 1px solid #eee;
       min-height: 2.75rem;
     }
@@ -251,18 +251,137 @@ PAGE_STYLE = """
       margin-left: auto;
       margin-right: auto;
     }
+    .maptab-hero {
+      font-family: 'Inter', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
     .maptab-hero .hero-body {
       padding-top: 2.5rem;
       padding-bottom: 1.5rem;
     }
     .maptab-hero .publication-title {
-      max-width: 44rem;
+      max-width: 46rem;
       margin-left: auto;
       margin-right: auto;
-      font-size: clamp(1.2rem, 2.6vw, 1.75rem) !important;
-      font-weight: 700;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
+      color: #111 !important;
+      font-size: clamp(1.35rem, 3.1vw, 2.05rem) !important;
+      font-weight: 800 !important;
+      line-height: 1.28;
+      letter-spacing: -0.02em;
+    }
+    .maptab-author-names {
+      max-width: 42rem;
+      margin: 0 auto 0.6rem;
+      text-align: center;
+      font-size: clamp(0.92rem, 1.9vw, 1.06rem);
+      font-weight: 500;
+      color: #333;
+      line-height: 1.55;
+    }
+    .maptab-author-names sup {
+      font-size: 0.72em;
+      font-weight: 600;
+    }
+    .maptab-year {
+      display: block;
+      text-align: center;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #222;
+      margin: 0.35rem 0 0.85rem;
+      letter-spacing: 0.02em;
+    }
+    .maptab-affiliations {
+      max-width: 38rem;
+      margin: 0 auto 0.35rem;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #444;
+      line-height: 1.5;
+    }
+    .maptab-affiliations .affil-line {
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .maptab-affiliations sup {
+      font-size: 0.75em;
+      font-weight: 600;
+      margin-right: 0.12em;
+    }
+    .maptab-author-notes {
+      max-width: 38rem;
+      margin: 0.4rem auto 0;
+      text-align: center;
+      font-size: 0.84rem;
+      font-weight: 400;
+      color: #555;
+      line-height: 1.5;
+    }
+    .maptab-author-notes sup {
+      font-size: 0.75em;
+      font-weight: 600;
+    }
+    .maptab-note-gap {
+      display: inline-block;
+      width: 1.35rem;
+    }
+    .maptab-email {
+      font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: 0.95em;
+      color: #333;
+    }
+    .maptab-logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 0.85rem;
+    }
+    .maptab-logo-row figure {
+      margin: 0 !important;
+    }
+    .maptab-link-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.45rem;
+      margin-top: 1rem;
+    }
+    .maptab-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #000 !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 999px !important;
+      padding: 0.38rem 0.9rem !important;
+      height: auto !important;
+      font-size: 0.78rem !important;
+      font-weight: 500 !important;
+      font-family: inherit;
+      text-decoration: none !important;
+      line-height: 1.2;
+      box-shadow: none;
+    }
+    .maptab-pill:hover {
+      color: #fff !important;
+      background: #1f1f1f !important;
+    }
+    .maptab-pill .icon {
+      color: #fff !important;
+      font-size: 0.85rem !important;
+      margin: 0 !important;
+      width: 1em !important;
+      height: 1em !important;
+    }
+    .maptab-pill .icon img {
+      width: 14px !important;
+      height: 14px !important;
+      vertical-align: middle;
+      filter: brightness(0) invert(1);
     }
     .maptab-hero .publication-authors {
       max-width: 40rem;
@@ -364,6 +483,7 @@ PAGE_STYLE = """
       color: #444;
     }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
+    body.maptab-body .maptab-pill.is-dark { background: #000; }
     .maptab-abstract .content,
     .maptab-abstract h2 {
       max-width: 40rem;
@@ -415,6 +535,11 @@ BIBTEX = r"""@article{shang2026maptab,
 
 def emit_index_html():
     title = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?"
+    title_html = (
+        escape("MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in")
+        + "<br>"
+        + escape("Heterogeneous Graphs?")
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -424,6 +549,7 @@ def emit_index_html():
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{escape(title)}</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
@@ -460,57 +586,40 @@ def emit_index_html():
       <div class="container maptab-narrow">
         <div class="columns is-centered">
           <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">{escape(title)}</h1>
-            <div class="is-size-5 publication-authors has-text-centered">
-              <span class="author-line">
-                Ziqiao Shang<sup>1,2†</sup>, Lingyue Ge<sup>1,2†</sup>, Yang Chen<sup>1,2</sup>, Shi-Yu Tian<sup>1,2</sup>, Zhenyu Huang<sup>1,2</sup>,<br>
-                Wenbo Fu<sup>1,2</sup>, Yu-Feng Li<sup>1,2</sup>, Lan-Zhe Guo<sup>1,2*</sup>
-              </span>
+            <h1 class="title is-1 publication-title">{title_html}</h1>
+            <div class="maptab-author-names">
+              Ziqiao Shang<sup>1,2†</sup>, Lingyue Ge<sup>1,2†</sup>, Yang Chen<sup>1,2</sup>, Shi-Yu Tian<sup>1,2</sup>, Zhenyu Huang<sup>1,2</sup>,<br>
+              Wenbo Fu<sup>1,2</sup>, Yu-Feng Li<sup>1,2</sup>, Lan-Zhe Guo<sup>1,2*</sup>
             </div>
-            <h1 style="font-size:23px;font-weight:bold">2026</h1>
-            <div class="is-size-6 publication-authors">
-              <span class="author-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
-              <span class="author-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
+            <span class="maptab-year">2026</span>
+            <div class="maptab-affiliations">
+              <span class="affil-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
+              <span class="affil-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
             </div>
-            <div style="font-size:15px;margin-top:0.5rem;">
-              <span><sup>†</sup>Equal contribution &nbsp;&nbsp;</span>
-              <span><sup>*</sup>Corresponding author: <span class="is-family-monospace">guolz@lamda.nju.edu.cn</span></span>
+            <div class="maptab-author-notes">
+              <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author: <span class="maptab-email">guolz@lamda.nju.edu.cn</span></span>
             </div>
-            <div class="columns is-centered is-mobile is-variable is-2" style="margin-top:0.75rem;justify-content:center;">
-              <div class="column is-narrow">
-                <figure class="image">
-                  <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 72px; object-fit: contain;">
-                </figure>
-              </div>
-              <div class="column is-narrow">
-                <figure class="image">
-                  <img src="figure/lamda.png" alt="LAMDA" style="height: 72px; object-fit: contain;">
-                </figure>
-              </div>
+            <div class="maptab-logo-row">
+              <figure class="image">
+                <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 76px; object-fit: contain;">
+              </figure>
+              <figure class="image">
+                <img src="figure/lamda.png" alt="LAMDA" style="height: 76px; object-fit: contain;">
+              </figure>
             </div>
-            <div class="has-text-centered" style="margin-top:0.75rem;">
-              <div class="publication-links" style="display:flex;flex-wrap:wrap;justify-content:center;gap:0.35rem;">
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="ai ai-arxiv"></i></span>
-                    <span>ArXiv</span>
-                  </a>
-                </span>
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon"><i class="fab fa-github"></i></span>
-                    <span>Code</span>
-                  </a>
-                </span>
-                <span class="link-block">
-                  <a href="#" class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="" style="width: 20px; height: 20px;">
-                    </span>
-                    <span>Dataset</span>
-                  </a>
-                </span>
-              </div>
+            <div class="maptab-link-row">
+              <a href="https://arxiv.org/abs/2602.18600" class="maptab-pill" target="_blank" rel="noopener noreferrer">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>ArXiv</span>
+              </a>
+              <a href="https://github.com/Ziqiao-Shang/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+              <a href="https://huggingface.co/datasets/szq-nju/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">
+                <span class="icon"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt=""></span>
+                <span>Dataset</span>
+              </a>
             </div>
           </div>
         </div>
