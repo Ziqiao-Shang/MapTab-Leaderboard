@@ -265,7 +265,7 @@ PAGE_STYLE = """
       text-align: center !important;
       color: #111 !important;
       font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
-      font-size: clamp(1.1rem, 2.5vw, 1.75rem) !important;
+      font-size: clamp(1.35rem, 3.35vw, 2.15rem) !important;
       font-weight: 700 !important;
       line-height: 1.32;
       letter-spacing: -0.02em;
@@ -406,6 +406,17 @@ PAGE_STYLE = """
       margin-right: auto;
       box-sizing: border-box;
     }
+    /* Leaderboards: ~1.3× abstract width; proportional scale via --lb-scale */
+    .maptab-lb-shell {
+      --lb-scale: 1.28;
+      width: 100%;
+      max-width: min(100%, calc(40rem * 1.3));
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      box-sizing: border-box;
+    }
     .maptab-teaser-img {
       display: block;
       margin: 0 auto;
@@ -436,14 +447,14 @@ PAGE_STYLE = """
     .maptab-lb-section h2.title {
       text-align: center;
     }
-    .maptab-lb-section .maptab-reading-col .lb-caption {
+    .maptab-lb-section .maptab-lb-shell .lb-caption {
       max-width: 100%;
     }
     .lb-wrap {
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
       margin: 0.75rem auto 0;
-      padding: 0.35rem 0.3rem;
+      padding: calc(0.35rem * var(--lb-scale, 1)) calc(0.3rem * var(--lb-scale, 1));
       border: 1px solid #e8e8e8;
       border-radius: 6px;
       background: #fff;
@@ -454,34 +465,47 @@ PAGE_STYLE = """
     }
     .lb-table {
       border-collapse: collapse;
-      font-size: 0.5rem;
+      font-size: calc(0.5rem * var(--lb-scale, 1));
       width: 100%;
-      min-width: 100%;
-      table-layout: fixed;
+      table-layout: auto;
       margin: 0;
       background: #fff;
     }
     .lb-table th, .lb-table td {
       border: 1px solid #c8c8c8;
-      padding: 0.12rem 0.2rem;
+      padding: calc(0.2rem * var(--lb-scale, 1)) calc(0.4rem * var(--lb-scale, 1));
       vertical-align: middle;
-      line-height: 1.25;
+      line-height: 1.3;
     }
     .lb-th-model, .lb-th-type { background: #F2F2F2 !important; font-weight: 600; }
-    .lb-model { text-align: left; white-space: normal; word-break: break-word; hyphens: auto; }
-    .lb-type { text-align: center; white-space: nowrap; }
-    .lb-num { text-align: center; }
+    .lb-table .lb-th-model,
+    .lb-table .lb-model {
+      min-width: calc(14rem * var(--lb-scale, 1));
+      max-width: calc(24rem * var(--lb-scale, 1));
+      text-align: left;
+      white-space: normal;
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: manual;
+    }
+    .lb-table .lb-th-type,
+    .lb-table .lb-type {
+      min-width: calc(6.25rem * var(--lb-scale, 1));
+      text-align: center;
+      white-space: nowrap;
+    }
+    .lb-num { text-align: center; white-space: nowrap; }
     .lb-best { background: #D9D9D9 !important; font-weight: 700; }
-    .lb-sec td { background: #E7F3FF !important; text-align: center; font-size: 0.58rem; }
-    .lb-subh td { text-align: left; font-style: italic; background: #fafafa !important; font-size: 0.52rem; }
+    .lb-sec td { background: #E7F3FF !important; text-align: center; font-size: calc(0.58rem * var(--lb-scale, 1)); }
+    .lb-subh td { text-align: left; font-style: italic; background: #fafafa !important; font-size: calc(0.52rem * var(--lb-scale, 1)); }
     .lb-mid td { height: 3px; padding: 0; border: none; background: transparent !important; }
     .lb-heavy td { border-top: 2px solid #363636; height: 0; padding: 0; background: transparent !important; }
     .lb-caption {
       font-size: 0.8rem;
-      line-height: 1.45;
-      text-align: center;
-      margin: 0 auto 0.35rem;
-      max-width: 40rem;
+      line-height: 1.5;
+      text-align: left;
+      margin: 0 0 0.75rem 0;
+      max-width: 100%;
       color: #444;
     }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
@@ -523,28 +547,39 @@ PAGE_STYLE = """
       font-size: inherit;
     }
     @media (max-width: 768px) {
-      .lb-table { font-size: 0.44rem; }
+      .maptab-lb-shell { --lb-scale: 1.06; }
     }
   </style>
 """
 
 ROUTE_CAPTION = (
-    "Evaluation results of various Multimodal Large Language Models (MLLMs) on the MapTab path planning task "
-    "<strong>MetroMap</strong> and <strong>TravelMap</strong> scenarios. EMA, PMA, and DS denote Exact Match Accuracy, "
-    "Partial Match Accuracy, and Difficulty-aware Score, respectively. Map-only: map information only; Edge-only: edge data only; "
-    "Map+Edge: map and edge data; Map+Edge+Vertex: map, edge, and vertex data; Map+Vertex2: map and merged vertex data (Vertex2_tab). "
-    "We did not include Edge_tab + Vertex_tab because the comparison between it and Map + Vertex2_tab yielded conclusions consistent "
-    "with those from the Map-only and Edge_tab-only control groups, without new findings. "
-    "<strong>Bold</strong> values represent the best performance within open-source and closed-source groups, respectively."
+    "The following leaderboard presents the evaluation results of various Multimodal Large Language Models (MLLMs) across "
+    "different data modalities in the MapTab path planning task. Performance is measured using three key metrics: "
+    "Exact Match Accuracy (EMA), Partial Match Accuracy (PMA), and Difficulty-aware Score (DS). Models were tested using "
+    "varying combinations of map, edge, and vertex data, as detailed below:<br>"
+    "·Map-only: Only map data used<br>"
+    "·Edge-only: Only edge data used<br>"
+    "·Map+Edge: Map and edge data combined<br>"
+    "·Map+Edge+Vertex: Map, edge, and vertex data combined<br>"
+    "·Map+Vertex2: Map and merged vertex data (Vertex2_tab)<br>"
+    "For clarity, comparisons involving Edge_tab + Vertex_tab were omitted, as they yielded similar results to the Map-only "
+    "and Edge_tab-only groups without adding new insights. The best performing results in both open-source and closed-source "
+    "model groups are highlighted in <strong>bold</strong>."
 )
 
 QA_CAPTION = (
-    "Performance of QA tasks across multiple MLLMs in the MetroMap and TravelMap scenarios. Regarding input modalities, M, E, and V "
-    "denote Map, Edge_tab, and Vertex_tab, respectively. In the MetroMap scenario, the Vertex_tab paired with the Map input has the "
-    "Line column removed to prevent excessive table information from affecting the evaluation of map-table coordination. "
-    "Task types are categorized into three classes: Global Perception-based Reasoning Tasks (GP), Local Perception-based Reasoning Tasks (LP), "
-    "and Spatial Relationship Judgment Tasks (SR). <strong>Bold</strong> values in the table indicate the best performance among "
-    "open-source and closed-source models, respectively."
+    "This leaderboard summarizes the performance of various Multimodal Large Language Models (MLLMs) on QA tasks across the "
+    "MetroMap and TravelMap scenarios. Input modalities are represented as:<br>"
+    "·M for Map<br>"
+    "·E for Edge_tab<br>"
+    "·V for Vertex_tab<br>"
+    "In the MetroMap scenario, the Vertex_tab combined with the Map input excludes the Line column to minimize unnecessary "
+    "table details, ensuring the evaluation focuses on map-table coordination.<br>"
+    "Tasks are categorized into three distinct types:<br>"
+    "·Global Perception-based Reasoning Tasks (GP)<br>"
+    "·Local Perception-based Reasoning Tasks (LP)<br>"
+    "·Spatial Relationship Judgment Tasks (SR)<br>"
+    "Bold values in the table indicate the best performance for open-source and closed-source models, respectively."
 )
 
 TEASER_BLURB = (
@@ -565,8 +600,8 @@ BIBTEX = r"""@article{shang2026maptab,
 
 def emit_index_html():
     title = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?"
-    _t1 = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning"
-    _t2 = "in Heterogeneous Graphs?"
+    _t1 = "MapTab: Are MLLMs Ready for Multi-Criteria"
+    _t2 = "Route Planning in Heterogeneous Graphs?"
     title_html = (
         f'<span class="maptab-title-line">{escape(_t1)}</span>'
         f'<span class="maptab-title-line">{escape(_t2)}</span>'
@@ -671,25 +706,21 @@ def emit_index_html():
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="container maptab-narrow">
-      <div class="maptab-reading-col">
-        <h2 class="title is-3">Route planning leaderboard</h2>
-        <p class="lb-caption">{ROUTE_CAPTION}</p>
-        <div class="lb-wrap">
+    <div class="maptab-lb-shell">
+      <h2 class="title is-3">Route planning leaderboard</h2>
+      <p class="lb-caption">{ROUTE_CAPTION}</p>
+      <div class="lb-wrap">
 {emit_route_table()}
-        </div>
       </div>
     </div>
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="container maptab-narrow">
-      <div class="maptab-reading-col">
-        <h2 class="title is-3">QA leaderboard</h2>
-        <p class="lb-caption">{QA_CAPTION}</p>
-        <div class="lb-wrap">
+    <div class="maptab-lb-shell">
+      <h2 class="title is-3">QA leaderboard</h2>
+      <p class="lb-caption">{QA_CAPTION}</p>
+      <div class="lb-wrap">
 {emit_qa_table()}
-        </div>
       </div>
     </div>
   </section>
