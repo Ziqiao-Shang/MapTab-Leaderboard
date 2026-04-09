@@ -252,20 +252,22 @@ PAGE_STYLE = """
       margin-right: auto;
     }
     .maptab-hero {
-      font-family: 'Inter', 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
     .maptab-hero .hero-body {
       padding-top: 2.5rem;
       padding-bottom: 1.5rem;
     }
     .maptab-hero .publication-title {
-      max-width: 46rem;
+      max-width: 56rem;
       margin-left: auto;
       margin-right: auto;
+      text-align: center !important;
       color: #111 !important;
-      font-size: clamp(1.35rem, 3.1vw, 2.05rem) !important;
-      font-weight: 800 !important;
-      line-height: 1.28;
+      font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
+      font-size: clamp(1.65rem, 4.2vw, 2.85rem) !important;
+      font-weight: 700 !important;
+      line-height: 1.22;
       letter-spacing: -0.02em;
     }
     .maptab-author-names {
@@ -352,14 +354,14 @@ PAGE_STYLE = """
     .maptab-pill {
       display: inline-flex;
       align-items: center;
-      gap: 0.35rem;
+      justify-content: center;
       background: #000 !important;
       color: #fff !important;
       border: none !important;
       border-radius: 999px !important;
-      padding: 0.38rem 0.9rem !important;
+      padding: 0.42rem 1.1rem !important;
       height: auto !important;
-      font-size: 0.78rem !important;
+      font-size: 0.8rem !important;
       font-weight: 500 !important;
       font-family: inherit;
       text-decoration: none !important;
@@ -369,19 +371,6 @@ PAGE_STYLE = """
     .maptab-pill:hover {
       color: #fff !important;
       background: #1f1f1f !important;
-    }
-    .maptab-pill .icon {
-      color: #fff !important;
-      font-size: 0.85rem !important;
-      margin: 0 !important;
-      width: 1em !important;
-      height: 1em !important;
-    }
-    .maptab-pill .icon img {
-      width: 14px !important;
-      height: 14px !important;
-      vertical-align: middle;
-      filter: brightness(0) invert(1);
     }
     .maptab-hero .publication-authors {
       max-width: 40rem;
@@ -394,6 +383,13 @@ PAGE_STYLE = """
     .maptab-teaser {
       background: transparent;
     }
+    .maptab-teaser .maptab-teaser-outer {
+      max-width: 100%;
+      width: 100%;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      margin: 0 auto;
+    }
     .maptab-teaser .hero-body {
       padding-top: 0.5rem;
       padding-bottom: 1.25rem;
@@ -401,17 +397,16 @@ PAGE_STYLE = """
     .maptab-teaser-img {
       display: block;
       margin: 0 auto;
-      max-width: min(100%, 560px);
-      max-height: 168px;
-      width: auto;
+      width: 60vw;
+      max-width: 100%;
       height: auto;
       object-fit: contain;
     }
     .maptab-teaser .content {
-      max-width: 38rem;
-      margin: 0.75rem auto 0;
-      font-size: 0.92rem;
-      line-height: 1.5;
+      max-width: min(42rem, 90vw);
+      margin: 0.85rem auto 0;
+      font-size: 0.95rem;
+      line-height: 1.55;
       text-align: center;
       color: #444;
     }
@@ -484,6 +479,10 @@ PAGE_STYLE = """
     }
     .publication-authors .author-line { display: block; margin-bottom: 0.35rem; }
     body.maptab-body .maptab-pill.is-dark { background: #000; }
+    .maptab-abstract h2.title.is-3 {
+      text-align: center !important;
+      width: 100%;
+    }
     .maptab-abstract .content,
     .maptab-abstract h2 {
       max-width: 40rem;
@@ -498,7 +497,7 @@ PAGE_STYLE = """
     }
     .maptab-bib h2.title { text-align: center; }
     @media (max-width: 768px) {
-      .maptab-teaser-img { max-height: 140px; }
+      .maptab-teaser-img { width: 92vw; }
       .lb-table { font-size: 0.44rem; }
     }
   </style>
@@ -523,6 +522,12 @@ QA_CAPTION = (
     "open-source and closed-source models, respectively."
 )
 
+TEASER_BLURB = (
+    "MapTab is a comprehensive benchmark designed to evaluate the map understanding and spatial reasoning "
+    "capabilities of Vision-Language Models (VLMs). The benchmark focuses on two core tasks: route planning and "
+    "map-based question answering, using both metro maps and travel maps."
+)
+
 ABSTRACT = """Systematic evaluation of Multimodal Large Language Models (MLLMs) is crucial for advancing  Artificial General Intelligence (AGI). However, existing benchmarks remain insufficient for rigorously assessing their reasoning capabilities under multi-criteria constraints. To bridge this gap, we introduce MapTab, a multimodal benchmark specifically designed to evaluate holistic multi-criteria reasoning in MLLMs via route planning tasks. MapTab requires MLLMs to perceive and ground visual cues from map images alongside route attributes (e.g., Time, Price) from structured tabular data. The benchmark encompasses two scenarios: Metromap, covering metro networks in 160 cities across 52 countries, and Travelmap, depicting 168 representative tourist attractions from 19 countries. In total, MapTab comprises 328 images, 196,800 route planning queries, and 3,936 QA queries, all incorporating 4 key criteria: Time, Price, Comfort, and Reliability. Extensive evaluations across 15 representative MLLMs reveal that current models face substantial challenges in multi-criteria multimodal reasoning. Notably, under conditions of limited visual perception, multimodal collaboration often underperforms compared to unimodal approaches. We believe MapTab provides a challenging and realistic testbed to advance the systematic evaluation of MLLMs."""
 
 BIBTEX = r"""@article{shang2026maptab,
@@ -535,11 +540,7 @@ BIBTEX = r"""@article{shang2026maptab,
 
 def emit_index_html():
     title = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?"
-    title_html = (
-        escape("MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in")
-        + "<br>"
-        + escape("Heterogeneous Graphs?")
-    )
+    title_html = escape(title)
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -549,7 +550,6 @@ def emit_index_html():
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{escape(title)}</title>
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./static/css/bulma.min.css">
   <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
@@ -608,18 +608,9 @@ def emit_index_html():
               </figure>
             </div>
             <div class="maptab-link-row">
-              <a href="https://arxiv.org/abs/2602.18600" class="maptab-pill" target="_blank" rel="noopener noreferrer">
-                <span class="icon"><i class="ai ai-arxiv"></i></span>
-                <span>ArXiv</span>
-              </a>
-              <a href="https://github.com/Ziqiao-Shang/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">
-                <span class="icon"><i class="fab fa-github"></i></span>
-                <span>Code</span>
-              </a>
-              <a href="https://huggingface.co/datasets/szq-nju/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">
-                <span class="icon"><img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt=""></span>
-                <span>Dataset</span>
-              </a>
+              <a href="https://arxiv.org/abs/2602.18600" class="maptab-pill" target="_blank" rel="noopener noreferrer">ArXiv</a>
+              <a href="https://github.com/Ziqiao-Shang/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">Code</a>
+              <a href="https://huggingface.co/datasets/szq-nju/MapTab" class="maptab-pill" target="_blank" rel="noopener noreferrer">Dataset</a>
             </div>
           </div>
         </div>
@@ -628,13 +619,13 @@ def emit_index_html():
   </section>
 
   <section class="hero teaser maptab-teaser">
-    <div class="container maptab-narrow">
+    <div class="container maptab-teaser-outer">
       <div class="hero-body">
         <div class="has-text-centered">
           <img class="maptab-teaser-img" src="./figure/fig_1.png" alt="MapTab overview">
         </div>
         <div class="content">
-          Overview of MapTab: a multimodal benchmark for multi-criteria route planning over map images and structured tables (MetroMap and TravelMap).
+          {escape(TEASER_BLURB)}
         </div>
       </div>
     </div>
