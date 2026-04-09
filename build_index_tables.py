@@ -259,15 +259,15 @@ PAGE_STYLE = """
       padding-bottom: 1.5rem;
     }
     .maptab-hero .publication-title {
-      max-width: 56rem;
+      max-width: 48rem;
       margin-left: auto;
       margin-right: auto;
       text-align: center !important;
       color: #111 !important;
       font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
-      font-size: clamp(1.65rem, 4.2vw, 2.85rem) !important;
+      font-size: clamp(1.35rem, 3.2vw, 2.2rem) !important;
       font-weight: 700 !important;
-      line-height: 1.22;
+      line-height: 1.28;
       letter-spacing: -0.02em;
     }
     .maptab-author-names {
@@ -293,22 +293,26 @@ PAGE_STYLE = """
       letter-spacing: 0.02em;
     }
     .maptab-affiliations {
-      max-width: 38rem;
+      max-width: 100%;
       margin: 0 auto 0.35rem;
+      padding: 0 0.25rem;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 400;
       color: #444;
-      line-height: 1.5;
-    }
-    .maptab-affiliations .affil-line {
-      display: block;
-      margin-bottom: 0.15rem;
+      line-height: 1.45;
+      white-space: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .maptab-affiliations sup {
       font-size: 0.75em;
       font-weight: 600;
       margin-right: 0.12em;
+    }
+    .maptab-affil-sep {
+      display: inline-block;
+      width: 1.15rem;
     }
     .maptab-author-notes {
       max-width: 38rem;
@@ -383,12 +387,14 @@ PAGE_STYLE = """
     .maptab-teaser {
       background: transparent;
     }
-    .maptab-teaser .maptab-teaser-outer {
-      max-width: 880px;
+    .maptab-figure-lb-width {
+      max-width: 100%;
       width: 100%;
+      margin-left: auto;
+      margin-right: auto;
       padding-left: 0.75rem;
       padding-right: 0.75rem;
-      margin: 0 auto;
+      box-sizing: border-box;
     }
     .maptab-teaser .hero-body {
       padding-top: 0.5rem;
@@ -404,10 +410,10 @@ PAGE_STYLE = """
     }
     .maptab-teaser .content {
       max-width: 100%;
-      margin: 0.85rem auto 0;
+      margin: 0.85rem 0 0;
       font-size: 0.95rem;
       line-height: 1.55;
-      text-align: center;
+      text-align: left;
       color: #444;
     }
     body.maptab-body .section {
@@ -420,18 +426,7 @@ PAGE_STYLE = """
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
-    body.maptab-body #BibTeX pre {
-      font-size: 0.78rem;
-      border-radius: 6px;
-      background: #fff;
-      border: 1px solid #eaeaea;
-    }
-    /* Compact leaderboards: centered like ReasonMap, scroll inside card */
-    .maptab-lb-section .container {
-      max-width: 880px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    /* Leaderboards share .maptab-figure-lb-width with teaser figure */
     .maptab-lb-section h2.title {
       text-align: center;
     }
@@ -489,13 +484,32 @@ PAGE_STYLE = """
       margin-left: auto;
       margin-right: auto;
     }
-    .maptab-bib .title,
-    .maptab-bib pre {
+    .maptab-bib .title {
       max-width: 40rem;
       margin-left: auto;
       margin-right: auto;
     }
     .maptab-bib h2.title { text-align: center; }
+    .maptab-bib pre {
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.8rem;
+      line-height: 1.45;
+      border-radius: 8px;
+      background: #0d0d0d !important;
+      color: #ececec !important;
+      border: 1px solid #2a2a2a !important;
+      padding: 1rem 1.15rem !important;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .maptab-bib pre code {
+      background: transparent !important;
+      color: inherit !important;
+      font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+      font-size: inherit;
+    }
     @media (max-width: 768px) {
       .lb-table { font-size: 0.44rem; }
     }
@@ -539,7 +553,11 @@ BIBTEX = r"""@article{shang2026maptab,
 
 def emit_index_html():
     title = "MapTab: Are MLLMs Ready for Multi-Criteria Route Planning in Heterogeneous Graphs?"
-    title_html = escape(title)
+    title_html = (
+        escape("MapTab: Are MLLMs Ready for Multi-Criteria Route Planning")
+        + "<br>"
+        + escape("in Heterogeneous Graphs?")
+    )
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -592,8 +610,7 @@ def emit_index_html():
             </div>
             <span class="maptab-year">2026</span>
             <div class="maptab-affiliations">
-              <span class="affil-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
-              <span class="affil-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
+              <span><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span><span class="maptab-affil-sep" aria-hidden="true"></span><span><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
             </div>
             <div class="maptab-author-notes">
               <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author: <span class="maptab-email">guolz@lamda.nju.edu.cn</span></span>
@@ -618,7 +635,7 @@ def emit_index_html():
   </section>
 
   <section class="hero teaser maptab-teaser">
-    <div class="container maptab-teaser-outer">
+    <div class="maptab-figure-lb-width">
       <div class="hero-body">
         <div class="has-text-centered">
           <img class="maptab-teaser-img" src="./figure/fig_1.png" alt="MapTab overview">
@@ -640,7 +657,7 @@ def emit_index_html():
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="container">
+    <div class="maptab-figure-lb-width">
       <h2 class="title is-3">Route planning leaderboard</h2>
       <p class="lb-caption">{ROUTE_CAPTION}</p>
       <div class="lb-wrap">
@@ -650,7 +667,7 @@ def emit_index_html():
   </section>
 
   <section class="section maptab-lb-section">
-    <div class="container">
+    <div class="maptab-figure-lb-width">
       <h2 class="title is-3">QA leaderboard</h2>
       <p class="lb-caption">{QA_CAPTION}</p>
       <div class="lb-wrap">
