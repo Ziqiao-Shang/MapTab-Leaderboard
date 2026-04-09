@@ -1,1 +1,3 @@
-# Ziqiao-Shang.github.io-MapTab
+# MapTab
+
+Project website for the MapTab benchmark release.
