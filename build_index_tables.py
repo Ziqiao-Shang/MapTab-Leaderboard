@@ -415,11 +415,12 @@ PAGE_STYLE = """
       margin-right: auto;
       box-sizing: border-box;
     }
-    /* Leaderboards: wider than abstract, but still centered and bounded */
+    /* Wider centered shells for leaderboard and BibTeX sections */
+    .maptab-wide-shell,
     .maptab-lb-shell {
       --lb-scale: 1.28;
       width: 100%;
-      max-width: min(100%, calc(52rem * 1.2));
+      max-width: min(100%, 70rem);
       margin-left: auto;
       margin-right: auto;
       padding-left: 0.75rem;
@@ -530,13 +531,13 @@ PAGE_STYLE = """
       margin-right: auto;
     }
     .maptab-bib .title {
-      max-width: 52rem;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
     }
     .maptab-bib h2.title { text-align: center; }
     .maptab-bib pre {
-      max-width: 52rem;
+      max-width: 100%;
       margin-left: auto;
       margin-right: auto;
       font-size: 0.8rem;
@@ -735,7 +736,7 @@ def emit_index_html():
   </section>
 
   <section class="section maptab-bib" id="BibTeX">
-    <div class="container maptab-narrow content">
+    <div class="container maptab-wide-shell content">
       <h2 class="title">BibTeX</h2>
       <pre><code>{escape(BIBTEX)}</code></pre>
     </div>
