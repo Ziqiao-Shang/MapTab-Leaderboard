@@ -1,3 +1,3 @@
 # MapTab
 
-Project website for the MapTab benchmark release.
+MapTab 项目发布网站（project page）。

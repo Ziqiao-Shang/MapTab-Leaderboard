@@ -247,7 +247,7 @@ PAGE_STYLE = """
       min-height: 2.75rem;
     }
     .maptab-narrow {
-      max-width: 820px;
+      max-width: 1120px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -312,7 +312,7 @@ PAGE_STYLE = """
       letter-spacing: 0.02em;
     }
     .maptab-affiliations {
-      max-width: 40rem;
+      max-width: 52rem;
       margin: 0 auto 0.35rem;
       padding: 0 0.5rem;
       text-align: center;
@@ -393,7 +393,7 @@ PAGE_STYLE = """
       background: #1f1f1f !important;
     }
     .maptab-hero .publication-authors {
-      max-width: 40rem;
+      max-width: 52rem;
       margin-left: auto;
       margin-right: auto;
     }
@@ -407,19 +407,19 @@ PAGE_STYLE = """
       padding-top: 0.5rem;
       padding-bottom: 1.25rem;
     }
-    /* Same width as Abstract body (40rem), centered inside .maptab-narrow */
+    /* Same width as Abstract body (52rem), centered inside .maptab-narrow */
     .maptab-reading-col {
       width: 100%;
-      max-width: 40rem;
+      max-width: 52rem;
       margin-left: auto;
       margin-right: auto;
       box-sizing: border-box;
     }
-    /* Leaderboards: ~1.3× abstract width; proportional scale via --lb-scale */
+    /* Leaderboards: wider than abstract, but still centered and bounded */
     .maptab-lb-shell {
       --lb-scale: 1.28;
       width: 100%;
-      max-width: min(100%, calc(40rem * 1.3));
+      max-width: min(100%, calc(52rem * 1.2));
       margin-left: auto;
       margin-right: auto;
       padding-left: 0.75rem;
@@ -525,18 +525,18 @@ PAGE_STYLE = """
     }
     .maptab-abstract .content,
     .maptab-abstract h2 {
-      max-width: 40rem;
+      max-width: 52rem;
       margin-left: auto;
       margin-right: auto;
     }
     .maptab-bib .title {
-      max-width: 40rem;
+      max-width: 52rem;
       margin-left: auto;
       margin-right: auto;
     }
     .maptab-bib h2.title { text-align: center; }
     .maptab-bib pre {
-      max-width: 40rem;
+      max-width: 52rem;
       margin-left: auto;
       margin-right: auto;
       font-size: 0.8rem;
