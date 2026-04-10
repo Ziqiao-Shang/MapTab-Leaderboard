@@ -247,7 +247,7 @@ PAGE_STYLE = """
       min-height: 2.75rem;
     }
     .maptab-narrow {
-      max-width: 1120px;
+      max-width: 1200px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -407,20 +407,29 @@ PAGE_STYLE = """
       padding-top: 0.5rem;
       padding-bottom: 1.25rem;
     }
-    /* Same width as Abstract body (52rem), centered inside .maptab-narrow */
+    /* Slightly wider reading column for teaser and abstract */
     .maptab-reading-col {
       width: 100%;
-      max-width: 52rem;
+      max-width: 62rem;
       margin-left: auto;
       margin-right: auto;
       box-sizing: border-box;
     }
-    /* Wider centered shells for leaderboard and BibTeX sections */
-    .maptab-wide-shell,
+    /* Wider centered shell for BibTeX */
+    .maptab-wide-shell {
+      width: 100%;
+      max-width: min(100%, 72rem);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      box-sizing: border-box;
+    }
+    /* Tables get an extra width bump */
     .maptab-lb-shell {
       --lb-scale: 1.28;
       width: 100%;
-      max-width: min(100%, 70rem);
+      max-width: min(100%, 76rem);
       margin-left: auto;
       margin-right: auto;
       padding-left: 0.75rem;
@@ -526,7 +535,7 @@ PAGE_STYLE = """
     }
     .maptab-abstract .content,
     .maptab-abstract h2 {
-      max-width: 52rem;
+      max-width: 62rem;
       margin-left: auto;
       margin-right: auto;
     }
