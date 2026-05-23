@@ -26,7 +26,7 @@
       min-height: 2.75rem;
     }
     .maptab-narrow {
-      max-width: 1200px;
+      max-width: 1320px;
       margin-left: auto;
       margin-right: auto;
     }
@@ -37,6 +37,10 @@
       padding-top: 2.5rem;
       padding-bottom: 1.5rem;
     }
+    .maptab-hero .column {
+      width: 100%;
+      max-width: 100%;
+    }
     .maptab-hero .publication-title {
       max-width: 100%;
       margin-left: auto;
@@ -44,7 +48,7 @@
       text-align: center !important;
       color: #111 !important;
       font-family: 'Google Sans', 'Noto Sans', sans-serif !important;
-      font-size: clamp(1.35rem, 3.35vw, 2.15rem) !important;
+      font-size: clamp(1.6rem, 3.8vw, 2.55rem) !important;
       font-weight: 700 !important;
       line-height: 1.32;
       letter-spacing: -0.02em;
@@ -60,13 +64,13 @@
       .maptab-title-line { white-space: nowrap; }
     }
     .maptab-author-names {
-      max-width: 42rem;
-      margin: 0 auto 0.6rem;
+      max-width: 72rem;
+      margin: 0.15rem auto 0.75rem;
       text-align: center;
-      font-size: clamp(0.92rem, 1.9vw, 1.06rem);
+      font-size: clamp(1.02rem, 2vw, 1.22rem);
       font-weight: 500;
       color: #333;
-      line-height: 1.55;
+      line-height: 1.65;
     }
     .maptab-author-names sup {
       font-size: 0.72em;
@@ -84,21 +88,21 @@
     .maptab-year {
       display: block;
       text-align: center;
-      font-size: 1.35rem;
+      font-size: clamp(1.2rem, 2.2vw, 1.55rem);
       font-weight: 600;
       color: #222;
       margin: 0.35rem 0 0.85rem;
       letter-spacing: 0.02em;
     }
     .maptab-affiliations {
-      max-width: 52rem;
+      max-width: 76rem;
       margin: 0 auto 0.35rem;
       padding: 0 0.5rem;
       text-align: center;
-      font-size: 0.88rem;
+      font-size: clamp(0.98rem, 1.6vw, 1.08rem);
       font-weight: 400;
       color: #444;
-      line-height: 1.5;
+      line-height: 1.58;
     }
     .maptab-affiliations .affil-line {
       display: block;
@@ -110,10 +114,10 @@
       margin-right: 0.12em;
     }
     .maptab-author-notes {
-      max-width: 38rem;
-      margin: 0.4rem auto 0;
+      max-width: 48rem;
+      margin: 0.5rem auto 0;
       text-align: center;
-      font-size: 0.84rem;
+      font-size: 0.95rem;
       font-weight: 400;
       color: #555;
       line-height: 1.5;
@@ -133,11 +137,18 @@
     }
     .maptab-logo-row {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      margin-top: 0.85rem;
+    }
+    .maptab-logo-line {
+      display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
       gap: 1.5rem;
-      margin-top: 0.85rem;
     }
     .maptab-logo-row figure {
       margin: 0 !important;
@@ -206,7 +217,7 @@
     }
     /* Tables get an extra width bump */
     .maptab-lb-shell {
-      --lb-scale: 1.28;
+      --lb-scale: 1.38;
       width: 100%;
       max-width: min(100%, 76rem);
       margin-left: auto;
@@ -227,8 +238,8 @@
       width: 100%;
       max-width: 100%;
       margin: 0.85rem 0 0;
-      font-size: 0.95rem;
-      line-height: 1.55;
+      font-size: 1.12rem;
+      line-height: 1.68;
       text-align: left;
       color: #444;
     }
@@ -238,9 +249,9 @@
       background: transparent;
     }
     body.maptab-body .section h2.title.is-3 {
-      font-size: 1.35rem !important;
+      font-size: 1.7rem !important;
       font-weight: 600;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.9rem;
     }
     .maptab-lb-section h2.title {
       text-align: center;
@@ -299,8 +310,8 @@
     .lb-mid td { height: 3px; padding: 0; border: none; background: transparent !important; }
     .lb-heavy td { border-top: 2px solid #363636; height: 0; padding: 0; background: transparent !important; }
     .lb-caption {
-      font-size: 0.8rem;
-      line-height: 1.5;
+      font-size: 1rem;
+      line-height: 1.65;
       text-align: left;
       margin: 0 0 0.75rem 0;
       max-width: 100%;
@@ -317,6 +328,10 @@
       max-width: 62rem;
       margin-left: auto;
       margin-right: auto;
+    }
+    .maptab-abstract .content {
+      font-size: 1.08rem;
+      line-height: 1.72;
     }
     .maptab-bib .title {
       max-width: 100%;
@@ -345,7 +360,7 @@
       font-size: inherit;
     }
     @media (max-width: 768px) {
-      .maptab-lb-shell { --lb-scale: 1.06; }
+      .maptab-lb-shell { --lb-scale: 1.12; }
     }
   </style>
 
@@ -380,24 +395,38 @@
           <div class="column has-text-centered">
             <h1 class="title is-1 publication-title"><span class="maptab-title-line">MapTab: Are MLLMs Ready for Multi-Criteria</span><span class="maptab-title-line">Route Planning in Heterogeneous Graphs?</span></h1>
             <div class="maptab-author-names">
-              Ziqiao Shang<sup>1,2†</sup>, Lingyue Ge<sup>1,2†</sup>, Yang Chen<sup>1,2</sup>, Shi-Yu Tian<sup>1,2</sup>, Zhenyu Huang<sup>1,2</sup>,<br>
-              Wenbo Fu<sup>1,2</sup>, <a href="https://cs.nju.edu.cn/liyf/index.htm" target="_blank" rel="noopener noreferrer">Yu-Feng Li</a><sup>1,2</sup>, <a href="http://www.lamda.nju.edu.cn/guolz/" target="_blank" rel="noopener noreferrer">Lan-Zhe Guo</a><sup>1,2*</sup>
+              <strong>Ziqiao Shang<sup>1,2†</sup></strong>, <strong>Lingyue Ge<sup>1,2†</sup></strong>, <strong>Zi-Jian Cheng<sup>1,2</sup></strong>, <strong>Shi-Yu Tian<sup>1,2</sup></strong>,<br>
+              <strong>Zhenyu Huang<sup>1,2</sup></strong>, <strong>Wenbo Fu<sup>1,2</sup></strong>, <strong>Weiming Wu<sup>1,2</sup></strong>, <strong>Yang Chen<sup>1,2</sup></strong>,<br>
+              <strong>Xiangwen Zhang<sup>3</sup></strong>, <strong>Yulan Hu<sup>3</sup></strong>, <strong>Bin Liu<sup>4</sup></strong>, <strong><a href="https://cs.nju.edu.cn/liyf/index.htm" target="_blank" rel="noopener noreferrer">Yu-Feng Li</a><sup>1,2</sup></strong>, <strong><a href="http://www.lamda.nju.edu.cn/guolz/" target="_blank" rel="noopener noreferrer">Lan-Zhe Guo</a><sup>1,2*</sup></strong>
             </div>
-            <span class="maptab-year">2026</span>
+            <span class="maptab-year">Submitted to EMNLP 2026</span>
             <div class="maptab-affiliations">
               <span class="affil-line"><sup>1</sup>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span>
               <span class="affil-line"><sup>2</sup>School of Intelligence Science and Technology, Nanjing University, Suzhou, China</span>
+              <span class="affil-line"><sup>3</sup>AMAP, Alibaba Group</span>
+              <span class="affil-line"><sup>4</sup>School of Computing and Artificial Intelligence, Southwest Jiaotong University, Chengdu, China</span>
             </div>
             <div class="maptab-author-notes">
-              <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author: <span class="maptab-email">guolz@lamda.nju.edu.cn</span></span>
+              <span><sup>†</sup>Equal contribution</span><span class="maptab-note-gap" aria-hidden="true"></span><span><sup>*</sup>Corresponding author</span><br>
+              <strong>Correspondence:</strong> <a class="maptab-email" href="mailto:guolz@lamda.nju.edu.cn">guolz@lamda.nju.edu.cn</a>
             </div>
             <div class="maptab-logo-row">
-              <figure class="image">
-                <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 76px; object-fit: contain;">
-              </figure>
-              <figure class="image">
-                <img src="figure/lamda.png" alt="LAMDA" style="height: 76px; object-fit: contain;">
-              </figure>
+              <div class="maptab-logo-line">
+                <figure class="image">
+                  <img src="figure/nanjing_university.jpg" alt="Nanjing University" style="height: 76px; object-fit: contain;">
+                </figure>
+                <figure class="image">
+                  <img src="figure/lamda.png" alt="LAMDA" style="height: 76px; object-fit: contain;">
+                </figure>
+              </div>
+              <div class="maptab-logo-line">
+                <figure class="image">
+                  <img src="figure/amap.png" alt="AMAP" style="height: 76px; object-fit: contain;">
+                </figure>
+                <figure class="image">
+                  <img src="figure/sjtu.jpg" alt="Southwest Jiaotong University" style="height: 76px; object-fit: contain;">
+                </figure>
+              </div>
             </div>
             <div class="maptab-link-row">
               <a href="https://arxiv.org/abs/2602.18600" class="maptab-pill" target="_blank" rel="noopener noreferrer">ArXiv</a>
@@ -435,7 +464,7 @@
   <section class="section maptab-lb-section">
     <div class="maptab-lb-shell">
       <h2 class="title is-3">Route planning leaderboard</h2>
-      <p class="lb-caption">The following leaderboard presents the evaluation results of various Multimodal Large Language Models (MLLMs) across different data modalities in the MapTab path planning task. Performance is measured using three key metrics: Exact Match Accuracy (EMA), Partial Match Accuracy (PMA), and Difficulty-aware Score (DS). Models were tested using varying combinations of map, edge, and vertex data, as detailed below:<br>·Map-only: Only map data used<br>·Edge-only: Only edge data used<br>·Map+Edge: Map and edge data combined<br>·Map+Edge+Vertex: Map, edge, and vertex data combined<br>·Map+Vertex2: Map and merged vertex data (Vertex2_tab)<br>For clarity, comparisons involving Edge_tab + Vertex_tab were omitted, as they yielded similar results to the Map-only and Edge_tab-only groups without adding new insights. The best performing results in both open-source and closed-source model groups are highlighted in <strong>bold</strong>.</p>
+      <p class="lb-caption">The following leaderboard presents the evaluation results of various Multimodal Large Language Models (MLLMs) across different data modalities in the MapTab path planning task. Performance is measured using three key metrics: Exact Match Accuracy (EMA), Partial Match Accuracy (PMA), and Difficulty-aware Score (DS). Models were tested using varying combinations of map, edge, and vertex data, as detailed below:<br>  —Map-only: Only map data used<br>  —Edge-only: Only edge data used<br>  —Map+Edge: Map and edge data combined<br>  —Map+Edge+Vertex: Map, edge, and vertex data combined<br>  —Map+Vertex2: Map and merged vertex data (Vertex2_tab)<br>For clarity, comparisons involving Edge_tab + Vertex_tab were omitted, as they yielded similar results to the Map-only and Edge_tab-only groups without adding new insights. The best performing results in both open-source and closed-source model groups are highlighted in <strong>bold</strong>.</p>
       <div class="lb-wrap">
 <table class="lb-table">
 <thead><tr>
@@ -503,7 +532,7 @@
   <section class="section maptab-lb-section">
     <div class="maptab-lb-shell">
       <h2 class="title is-3">QA leaderboard</h2>
-      <p class="lb-caption">This leaderboard summarizes the performance of various Multimodal Large Language Models (MLLMs) on QA tasks across the MetroMap and TravelMap scenarios. Input modalities are represented as:<br>·M for Map<br>·E for Edge_tab<br>·V for Vertex_tab<br>In the MetroMap scenario, the Vertex_tab combined with the Map input excludes the Line column to minimize unnecessary table details, ensuring the evaluation focuses on map-table coordination.<br>Tasks are categorized into three distinct types:<br>·Global Perception-based Reasoning Tasks (GP)<br>·Local Perception-based Reasoning Tasks (LP)<br>·Spatial Relationship Judgment Tasks (SR)<br>Bold values in the table indicate the best performance for open-source and closed-source models, respectively.</p>
+      <p class="lb-caption">This leaderboard summarizes the performance of various Multimodal Large Language Models (MLLMs) on QA tasks across the MetroMap and TravelMap scenarios. Input modalities are represented as:<br>  —M for Map<br>  —E for Edge_tab<br>  —V for Vertex_tab<br>In the MetroMap scenario, the Vertex_tab combined with the Map input excludes the Line column to minimize unnecessary table details, ensuring the evaluation focuses on map-table coordination.<br>Tasks are categorized into three distinct types:<br>  —Global Perception-based Reasoning Tasks (GP)<br>  —Local Perception-based Reasoning Tasks (LP)<br>  —Spatial Relationship Judgment Tasks (SR)<br>Bold values in the table indicate the best performance for open-source and closed-source models, respectively.</p>
       <div class="lb-wrap">
 <table class="lb-table lb-table-qa">
 <thead><tr>
